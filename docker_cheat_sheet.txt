@@ -13,7 +13,7 @@ docker rmi $(docker images -a -q)	# all images
 docker run -d -p 80:80 --name=<ctnr_name> <image>	# -d = detached mode (background)
 													# -p = map port 80 of the host to port 80 in the container
 === Rentrer dans un container en cours ===
-docker exec -ti *nomconteneurouid* bash
+docker exec -ti *nomconteneurouid* sh
 
 === delete tous les container stopped and running ===
 docker container rm -f $(docker ps -aq)
