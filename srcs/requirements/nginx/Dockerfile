@@ -1,6 +1,7 @@
 FROM alpine:3.13
 
 RUN apk update
+RUN apk upgrade
 RUN apk add nginx
 
 # Creer le dossier run/nginx (il n'est pas créé par defaut dans Alpine lors de l'installation de nginx)
