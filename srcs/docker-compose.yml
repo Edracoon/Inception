@@ -4,22 +4,21 @@ services:
 
   nginx:
     build: requirements/nginx/.
-    image: nginx_image
+    image: nginx
     ports:
-      - 80:80
+      - 443:443
     restart: on-failure
     networks:
       - inception
 
-
-  mariadb:
-    build: requirements/mariadb/.
-    image: mariadb_image
-    ports:
-      - 3306:3306
-    restart: on-failure
-    networks:
-      - inception
+#  mariadb:
+#    build: requirements/mariadb/.
+#    image: mariadb_image
+#    ports:
+#      - 3306:3306
+#    restart: on-failure
+#    networks:
+#      - inception
 
 
 networks:
