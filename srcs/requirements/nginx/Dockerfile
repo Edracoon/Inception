@@ -9,15 +9,12 @@ RUN apk add openssl
 RUN mkdir -p /run/nginx
 
 # TLS installation
-
 RUN mkdir /etc/nginx/certs
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/certs/localhost.pem -keyout /etc/nginx/certs/localhost.key -subj "/C=FR/ST=Nice/L=Nice/O=42 School/OU=epfennig/CN=localhost"
 RUN ["chown", "0600", "/etc/nginx/certs"]
 
-# COPY index.html /var/www/localhost/
 
 RUN rm -f /etc/nginx/http.d/default.conf
-
 COPY ./conf/default.conf  /etc/nginx/http.d/
 
 # Pour faire tourner le container, utilisation d'un daemon (nginx)

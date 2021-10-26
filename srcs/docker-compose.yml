@@ -7,7 +7,48 @@ services:
     image: nginx
     ports:
       - 443:443
+    volumes:
+      - nginx:/Users/epfennig/Desktop/Inception/volume_test
+    links:
+        - wordpress
     restart: on-failure
+    networks:
+      - inception
+
+#  wordpress:
+#    build: requirements/wordpress/.
+#    image: wordpress
+#    ports:
+#      - 9000:9000
+#    restart: on-failure
+#    networks:
+#      - inception
+
+  wordpress:
+    image: wordpress
+    restart: on-failure
+    ports:
+      - 9000:9000
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/Users/epfennig/Desktop/Inception/volume_test
+    networks:
+      - inception
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/Users/epfennig/Desktop/Inception/volume_test
     networks:
       - inception
 
@@ -20,8 +61,12 @@ services:
 #    networks:
 #      - inception
 
-
 networks:
   inception:
     name: inception
     driver: bridge
+
+volumes:
+  wordpress:
+  db:
+  nginx:
