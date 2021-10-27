@@ -5,68 +5,32 @@ services:
   nginx:
     build: requirements/nginx/.
     image: nginx
+    restart: on-failure
     ports:
       - 443:443
     volumes:
-      - nginx:/Users/epfennig/Desktop/Inception/volume_test
-    links:
-        - wordpress
-    restart: on-failure
+      - /Users/epfennig/Desktop/Inception/volume_test:/var/www/localhost
     networks:
       - inception
 
-#  wordpress:
-#    build: requirements/wordpress/.
-#    image: wordpress
-#    ports:
-#      - 9000:9000
-#    restart: on-failure
-#    networks:
-#      - inception
-
   wordpress:
+    build: requirements/wordpress/.
     image: wordpress
     restart: on-failure
     ports:
       - 9000:9000
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
     volumes:
-      - wordpress:/Users/epfennig/Desktop/Inception/volume_test
+      - /Users/epfennig/Desktop/Inception/volume_test:/var/www/localhost
     networks:
       - inception
-
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-    volumes:
-      - db:/Users/epfennig/Desktop/Inception/volume_test
-    networks:
-      - inception
-
-#  mariadb:
-#    build: requirements/mariadb/.
-#    image: mariadb_image
-#    ports:
-#      - 3306:3306
-#    restart: on-failure
-#    networks:
-#      - inception
+#    environment:
+#      WORDPRESS_DB_HOST: db
+#      WORDPRESS_DB_USER: exampleuser
+#      WORDPRESS_DB_PASSWORD: examplepass
+#      WORDPRESS_DB_NAME: exampledb
+#      ALLOW_EMPTY_PASSWORD: "yes"
 
 networks:
   inception:
     name: inception
     driver: bridge
-
-volumes:
-  wordpress:
-  db:
-  nginx:
