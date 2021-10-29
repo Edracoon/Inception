@@ -5,30 +5,50 @@ services:
   nginx:
     build: requirements/nginx/.
     image: nginx
-    restart: on-failure
+    container_name: nginx
     ports:
       - 443:443
     volumes:
-      - /Users/epfennig/Desktop/Inception/volume_test:/var/www/localhost
+      - /Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx:/var/www/html
+    depends_on:
+      - wordpress
     networks:
       - inception
+    restart: on-failure
 
   wordpress:
     build: requirements/wordpress/.
     image: wordpress
-    restart: on-failure
-    ports:
-      - 9000:9000
+    container_name: wordpress
     volumes:
-      - /Users/epfennig/Desktop/Inception/volume_test:/var/www/localhost
+      -  /Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      MYSQL_ROOT_PASSWORD: mysql_root_pass
+      WORDPRESS_DB_NAME: db_name
+      WORDPRESS_DB_USER: user_name
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_TABLE_PREFIX: wp_
     networks:
       - inception
-#    environment:
-#      WORDPRESS_DB_HOST: db
-#      WORDPRESS_DB_USER: exampleuser
-#      WORDPRESS_DB_PASSWORD: examplepass
-#      WORDPRESS_DB_NAME: exampledb
-#      ALLOW_EMPTY_PASSWORD: "yes"
+    restart: on-failure
+
+  mysql:
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - /Users/epfennig/Desktop/Inception/volume_test/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_pass
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: user_name
+      MYSQL_PASSWORD: user_pass
+    networks:
+      - inception
+    restart: on-failure
 
 networks:
   inception:
