@@ -1,6 +1,6 @@
 FROM alpine:3.13
 
-RUN apk --update add wget\
+RUN apk --update add wget \
 	php7 php7-fpm php7-opcache php7-mysqli \
 	php7-session php7-iconv php7-json \
 	php7-gd php7-curl php7-xml php7-common \
@@ -13,7 +13,7 @@ COPY ./conf/wp-config.php ./
 
 RUN mkdir -p /var/www/html
 
-# Set le user pour wordpress
+# Set le user et le groupe pour wordpress
 RUN addgroup -g 82 -S www-data
 RUN adduser -u 82 -D -S -G www-data www-data
 
@@ -21,6 +21,7 @@ RUN chmod 777 -R /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
+RUN rm -f /etc/php7/php-fpm.d/www.conf
 COPY ./conf/www.conf /etc/php7/php-fpm.d/www.conf
 
 CMD ["sh", "wordpress_install.sh"]
