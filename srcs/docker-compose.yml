@@ -25,7 +25,7 @@ services:
     depends_on:
       - mysql
     environment:
-      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_HOST: mariadb:3306
       MYSQL_ROOT_PASSWORD: mysql_root_pass
       WORDPRESS_DB_NAME: db_name
       WORDPRESS_DB_USER: user_name
