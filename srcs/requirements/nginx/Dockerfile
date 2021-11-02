@@ -4,6 +4,8 @@ RUN apk update
 RUN apk upgrade
 RUN apk add nginx
 RUN apk add openssl
+# openrc for rc-service
+RUN apk add openrc
 
 # Creer le dossier run/nginx (il n'est pas créé par defaut dans Alpine lors de l'installation de nginx)
 RUN mkdir -p /run/nginx
