@@ -1,13 +1,14 @@
 <?php
-define( 'DB_NAME', 'db_name');
+define( 'DB_NAME', getenv('MARIADB_DATABASE'));
 
 /** Utilisateur de la base de données MySQL. */
-define('DB_USER', 'user_name');
+define('DB_USER', getenv('MARIADB_USER'));
 
 /** Mot de passe de la base de données MySQL. */
-define('DB_PASSWORD', 'user_pass');
+define('DB_PASSWORD', getenv('MARIADB_PASSWORD'));
 
-define('DB_HOST', 'mariadb:3306');
+define('DB_HOST', getenv('WORDPRESS_DB_HOST'));
+
 define('DB_CHARSET', 'utf8');
 define('WP_SITEURL', 'localhost' );
 define('WP_HOME', 'localhost' );

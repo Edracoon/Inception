@@ -9,7 +9,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - /Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx:/var/www/html
+      - v_wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
@@ -21,31 +21,31 @@ services:
     image: wordpress
     container_name: wordpress
     volumes:
-      -  /Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx:/var/www/html
+      -  v_wordpress:/var/www/html
     depends_on:
-      - mysql
+      - mariadb
     environment:
-      WORDPRESS_DB_HOST: mariadb
-      MYSQL_ROOT_PASSWORD: mysql_root_pass
-      WORDPRESS_DB_NAME: db_name
-      WORDPRESS_DB_USER: user_name
-      WORDPRESS_DB_PASSWORD: user_pass
-      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+      WORDPRESS_DB_USER: ${MARIADB_USER}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
     networks:
       - inception
     restart: on-failure
 
-  mysql:
+  mariadb:
     build: requirements/mariadb/.
     image: mariadb
     container_name: mariadb
     volumes:
-      - /Users/epfennig/Desktop/Inception/volume_test/mysql:/var/lib/mysql
+      - v_mariadb:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: mysql_root_pass
-      MYSQL_DATABASE: db_name
-      MYSQL_USER: user_name
-      MYSQL_PASSWORD: user_pass
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     networks:
       - inception
     restart: on-failure
@@ -54,3 +54,17 @@ networks:
   inception:
     name: inception
     driver: bridge
+
+volumes:
+  v_mariadb:
+    driver: local
+    driver_opts:
+      o: 'bind'
+      type: 'none'
+      device: '/Users/epfennig/Desktop/Inception/volume_test/mysql'
+  v_wordpress:
+    driver: local
+    driver_opts:
+      o: 'bind'
+      type: 'none'
+      device: '/Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx'
