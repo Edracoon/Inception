@@ -1,6 +1,6 @@
 FROM alpine:3.13
 
-RUN apk --update add wget\
+RUN apk --update add curl wget \
 	php7 php7-fpm php7-opcache php7-mysqli \
 	php7-session php7-iconv php7-json \
 	php7-gd php7-curl php7-xml php7-common \
