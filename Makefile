@@ -10,5 +10,6 @@ clean:
 		sudo rm -rf /home/epfennig/data/mariadb/*
 		sudo rm -rf  /home/epfennig/data/wordpress/*
 
+
 # domaine name :
 #vim /etc/hosts
