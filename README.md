@@ -1,6 +1,6 @@
 # Inception
 
--- nginx --
+-- nginx -- \
 webserver
 
 -- wordpress --
