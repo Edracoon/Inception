@@ -3,6 +3,7 @@
 -- nginx -- \
 un serveur web, stoque les fichiers qui compose le site web, sers a faire
 la liaison entre les differents services notamment via FastCGI pour Wordpress et php-fpm
+C'est en quelques sortes la plateforme 
 
 -- wordpress -- \
 gestion site web et base de données mariadb
