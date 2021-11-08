@@ -10,7 +10,8 @@ define('DB_PASSWORD', getenv('MARIADB_PASSWORD'));
 define('DB_HOST', getenv('WORDPRESS_DB_HOST'));
 
 define('DB_CHARSET', 'utf8');
-#define('WP_SITEURL', 'localhost' );
+
+#define('WP_SITEURL', getenv('SITE_URL') );
 #define('WP_HOME', 'localhost' );
 
 define('DB_COLLATE', '' );

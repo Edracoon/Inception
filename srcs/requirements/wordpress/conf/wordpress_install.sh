@@ -16,6 +16,6 @@ mv /wp-config.php /var/www/html
 
 
 # On lance l'installation de WordPress (Celle que l'on a normalement en se connectant sur localhost) avec les informations de l'admin
-wp core install --allow-root --url=$SITE_URL --title=$TITLE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --path="/var/www/html"
+wp core install --allow-root --url=$DOMAIN_NAME --title=$TITLE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --path="/var/www/html"
 
 exec php-fpm7 -F

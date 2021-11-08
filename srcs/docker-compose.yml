@@ -31,7 +31,8 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
-      SITE_URL: ${SITE_URL}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      SITE_URL: ${DOMAIN_NAME}
       TITLE: ${TITLE}
       ADMIN_USER: ${ADMIN_USER}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
@@ -66,10 +67,10 @@ volumes:
     driver_opts:
       o: 'bind'
       type: 'none'
-      device: '/Users/epfennig/Desktop/Inception/volume_test/mysql'
+      device: '/home/epfennig/data/mariadb'
   v_wordpress:
     driver: local
     driver_opts:
       o: 'bind'
       type: 'none'
-      device: '/Users/epfennig/Desktop/Inception/volume_test/wordpress_nginx'
+      device: '/home/epfennig/data/wordpress'
